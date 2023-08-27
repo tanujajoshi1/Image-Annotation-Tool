@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header>
     <img src={logo} alt="" />
-    <h1>Image Annotation Tool</h1>
+    <h1>Image <label>Annotation Tool</label></h1>
     </header>
 
   )
