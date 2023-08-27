@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Stage, Layer, Group } from "react-konva";
+import React, { useState, useEffect } from "react";
+import { Stage, Layer} from "react-konva";
 import uuid from "react-uuid";
 import ImageFromUrl from "./ImageFromUrl";
 import Annotation from "./Annotation";
@@ -21,26 +21,32 @@ function App() {
     width: window.innerWidth,
     height: window.innerHeight
   });
+  useEffect(() => {
+    // Clear localStorage data when the component mounts (application starts or restarts).
+    localStorage.removeItem("annotationsData");
+  }, []);
 
-
+  //go to previous image
   const handlePrevImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : prevIndex
     );
     resetAnnotations();
   };
+  //go to next image
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex < images.length - 1 ? prevIndex + 1 : prevIndex
     );
     resetAnnotations();
   };
-
+//reset annotations
   const resetAnnotations = () => {
     setAnnotations([]);
     setNewAnnotation([]);
     selectAnnotation(null);
   };
+  //creating bounding boxes
   const handleMouseDown = event => {
     if (selectedId === null && newAnnotation.length === 0) {
       const { x, y } = event.target.getStage().getPointerPosition();
@@ -89,6 +95,7 @@ function App() {
       }
     }
   };
+  //converting annotations to json
   const convertAnnotationsToJSON = () => {
     const jsonAnnotations = {};
   
@@ -107,9 +114,17 @@ function App() {
   
     return JSON.stringify(jsonAnnotations, null, 2);
   };
-  const handleSaveAnnotations = () => {
+
+  //saving annotaions to local storage
+  const handleSavelocallyAnnotations = () => {
     const annotationsJSON = convertAnnotationsToJSON();
-    
+    localStorage.setItem("annotationsData", annotationsJSON);
+  };
+  //download annotationa
+  const handleSaveAnnotations = () => {
+    let annotationsJSON = localStorage.getItem("annotationsData");
+    annotationsJSON = convertAnnotationsToJSON();
+    if (annotationsJSON) {
     const blob = new Blob([annotationsJSON], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     
@@ -119,6 +134,7 @@ function App() {
     a.click();
     
     URL.revokeObjectURL(url);
+    }
   };
    
   const currentImageSrc = images[currentImageIndex];
@@ -128,9 +144,10 @@ function App() {
       <div className="button-container">
       <button id='reset' onClick={resetAnnotations}>RESET</button>
       
-      <button id='prev' onClick={handlePrevImage} disabled={currentImageIndex === 0}>❮PREVIOUS</button>
-      <button id='next' onClick={handleNextImage} disabled={currentImageIndex === images.length - 1}>NEXT❯</button>
-      <button id='save' onClick={handleSaveAnnotations}>SAVE</button>
+      <button id='prev' onClick={handlePrevImage} disabled={currentImageIndex === 0}>❮ PREV</button>
+      <button id='next' onClick={handleNextImage} disabled={currentImageIndex === images.length - 1}>NEXT ❯</button>
+      <button id='save' onClick={handleSavelocallyAnnotations} >SAVE</button>
+      <button id='submit' onClick={handleSaveAnnotations}>SUBMIT</button>
       </div>
     <div className="container"  tabIndex={1} onKeyDown={handleKeyDown}>
       <Stage
@@ -142,22 +159,16 @@ function App() {
         onMouseUp={handleMouseUp}
       >
         <Layer>
-        <Group
-            
-            >
+     
           <ImageFromUrl
             setCanvasMeasures={setCanvasMeasures}
             imageUrl={currentImageSrc}
             onMouseDown={() => {
               // deselect when clicked on empty area
               selectAnnotation(null);
-            }}              
-          
-            className="custom-image-style"
-     
-          />
+            }}  />
  
- </Group>
+
           {annotationsToDraw.map((annotation, i) => {
             return (
               <Annotation

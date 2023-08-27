@@ -153,11 +153,14 @@ button:hover{
   margin: 0 auto;
 }
 
-#save{
+#submit{
   background-color: rgb(0, 165, 0);
 }
 #reset{
-  background-color: rgb(243, 1, 1);
+  background-color: rgb(214, 7, 7);
+}
+#save{
+  background-color: rgb(4, 4, 58);
 }
 
 
