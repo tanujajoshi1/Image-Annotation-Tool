@@ -1,13 +1,165 @@
-body {
+*{
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  /* font-family: 'Lucida Sans'; */
+  overflow-x: hidden;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+header{
+  box-shadow: 0 0 10px 0 rgba(48, 47, 47, 0.3);
+  padding: 16px 32px;
+  text-align: center;
 }
+header img{
+  height: auto;
+  width: 200px;
+  float: left;
+  padding: 10px;
+  /* margin-left: 10px; */
+  
+}
+
+header h1{  
+  width: 70%;
+}
+
+footer{
+  position: absolute;
+  width: 100%;
+  box-shadow: 0 0 10px 0 rgba(87, 83, 83, 0.3);
+  text-align: center;
+  padding: 16px 32px;
+  margin-top: 30px;
+
+}
+.more{
+  margin: 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+a{
+  text-decoration: none;
+  /* color: black; */
+}
+
+.container{
+display: flex;
+justify-content: center !important;
+align-items: center!important;
+height: 100vh; 
+margin-top: 20px;
+border: none;
+margin-right: 10px;
+margin-left: 10px;
+box-shadow: 0 3px 2px 0 rgba(88, 87, 87, 0.24), 0 10px 20px 0 rgba(0,0,0,0.19);
+
+ 
+}
+.image-container {
+  max-width: 50%;
+  max-height: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+}
+button {
+  padding: 10px 25px;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 15px;
+  /* font-size: 1rem; */
+  font-size: small;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  margin: 0; 
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+
+}
+button:disabled {
+  background-color: #ccc;
+  color: #666; 
+  cursor: auto;
+  
+}
+button:disabled:hover{
+  background-color: #ccc; /* Greyish background color for disabled button */
+  color: #666; /* Greyish text color for disabled button */
+   /* Change cursor to not-allowed for disabled button */
+   transition: none;
+   transform: none;
+  
+}
+button:hover{
+  /* box-shadow: 0 8px 10px 0 rgba(88, 87, 87, 0.24), 0 17px 50px 0 rgba(0,0,0,0.19); */
+  cursor: pointer;
+  transform: translateY(-5px);
+  background-color: rgb(31, 31, 31);
+  color: rgb(255, 255, 255);
+
+  }
+
+  @media (max-width: 768px) {
+    header {
+      padding: 16px 10px; /* Adjust padding for smaller screens */
+    }
+  
+    header img {
+      width: 80px; /* Adjust image width for smaller screens */
+      height: auto;
+      display: none;
+          
+    }
+  
+    header h1 {
+      width: 100%; 
+      font-size: 20px;
+    }
+    button{
+      width: 5rem;
+      padding: 5px;
+      height: 2rem;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-evenly;   
+      padding: 10px;
+    }
+  }
+.custom-image-style{
+  margin-top: 10px;
+  max-width: 80%;
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+#save{
+  background-color: rgb(0, 165, 0);
+}
+#reset{
+  background-color: rgb(243, 1, 1);
+}
+
+
+  
+  
